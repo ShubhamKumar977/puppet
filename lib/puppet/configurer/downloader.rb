@@ -13,6 +13,7 @@ class Puppet::Configurer::Downloader
     files = []
     begin
       catalog.apply do |trans|
+        raise Puppet::Error, _("Failed to retrieve %{name}: %{detail}") % { name: 'ignore_plugin_errors flag value', detail:  Puppet[:ignore_plugin_errors] }
         unless Puppet[:ignore_plugin_errors]
           # Propagate the first failure associated with the transaction. The any_failed?
           # method returns the first resource status that failed or nil, not a boolean.
